@@ -3,12 +3,8 @@ package com.aboza.sunshine.app;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,19 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 
 /**
  * Created by August on 30/04/2015.
@@ -94,10 +78,10 @@ public class ForecastFragment extends Fragment {
     }
 
         private void updateWeather() {
-        FetchWeatherTask weather = new FetchWeatherTask();
+        FetchWeatherTask weather = new FetchWeatherTask(getActivity(), mForecastAdapter);
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String location = pref.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
-        weather.execute(location);
+            weather.execute(location);
         }
 
         @Override
@@ -108,13 +92,13 @@ public class ForecastFragment extends Fragment {
 
 
 
-    public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
+    /*public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
         /* The date/time conversion code is going to be moved outside the asynctask later,
          * so for convenience we're breaking it out into its own method now.
-         */
+
         private String getReadableDateString(long time){
             // Because the API returns a unix timestamp (measured in seconds),
             // it must be converted to milliseconds in order to be converted to valid date.
@@ -124,7 +108,7 @@ public class ForecastFragment extends Fragment {
 
         /**
          * Prepare the weather high/lows for presentation.
-         */
+
         private String formatHighLows(double high, double low) {
 
             SharedPreferences sharedpref = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -153,7 +137,7 @@ public class ForecastFragment extends Fragment {
          *
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
-         */
+
         private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
                 throws JSONException {
 
@@ -326,5 +310,5 @@ public class ForecastFragment extends Fragment {
                 }
             }
         }
-    }
+    }*/
 }
